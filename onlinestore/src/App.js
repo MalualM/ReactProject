@@ -1,55 +1,69 @@
-import './App.css';
-import {BrowserRouter as Router,Routes, Route} from 'react-router-dom' 
+// App.js
+
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/navbar';
 import HomePage from './components/HomePage';
-import React,{useState,useEffect} from 'react';
+import Cart from './components/cart';
 
-function App  () {
- const[products,setProducts]=useState([]) 
+function App() {
   
- useEffect(()=>{
-  const fetchdata=async()=>{
-    try {
-      const response=await fetch('https://api.escuelajs.co/api/v1/products');
-      const data=await response.json();
-      setProducts(data)
-    } catch (error){
-      console.error('Error fetching data',error)
-    }
-  }
-  fetchdata()
- },[])
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://api.escuelajs.co/api/v1/products');
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+  };
+
+  const buyProduct = (product) => {
+    
+    console.log(`Buying ${product.title}`);
+  };
+
   return (
     <>
-    <div className='App'>
-       
-       <Router>
-         <HomePage/>
-         <Navbar/>
-         <Routes>
-           <Route path='/'/>
-           <Route path='/cart'/>
-         </Routes>
-       </Router>
-     </div>
-    <div>
-      <ul>
-        {products.map((product)=>(
-          <li key={product.id}>
-            <strong>{product.title}
-            </strong> - ${product.price}
-            <strong>
-              {product.image}
-            </strong>
-          </li>
-        ))}
-      </ul>
-    </div>
-    
+      <div className='App'>
+        <Router>
+        <Navbar />
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route
+              path='/cart'
+              element={<Cart cart={cart} />}
+            />
+          </Routes>
 
-
+        </Router>
+        
+      </div>
+      <div>
+        <ul>
+          {products.map((product) => (
+            <li key={product.id}>
+              <strong>{product.title}</strong> - ${product.price}
+              <strong>{product.image}</strong>
+              <button onClick={() => addToCart(product)}>Add to Cart</button>
+              <button onClick={() => buyProduct(product)}>Buy</button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
-  )
+  );
+  
 }
 
 export default App;
