@@ -1,5 +1,3 @@
-// App.js
-
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/navbar';
@@ -23,20 +21,20 @@ function App() {
       }
     };
     fetchData();
-  }, []);
+  }, [])
 
   const addToCart = (product) => {
-    setCart([...cart, product]);
-  };
+    setCart([...cart, product])
+  }
 
   const buyProduct = (product) => {
     
-    console.log(`Buying ${product.title}`);
+    console.log(`Buying ${product.title}`)
   };
 
 const onRemoveFromCart=(index)=>{
   const updatedCart=[...cart]
-  updatedCart.splice(index,1);
+  updatedCart.splice(index,1)
   setCart(updatedCart)
 }
 
@@ -52,7 +50,6 @@ const onRemoveFromCart=(index)=>{
               element={<Cart cart={cart} onRemoveFromCart={onRemoveFromCart} />}
             />
           </Routes>
-
         </Router>
         
       </div>
@@ -61,7 +58,7 @@ const onRemoveFromCart=(index)=>{
           {products.map((product) => (
             <li key={product.id}>
               <strong>{product.title}</strong> - ${product.price}
-              <img src={product.images} alt={product.title} style={{width: '30%',height: '10%'}}/>
+              <img src={product.images} alt={product.price} style={{width: '30%',height: '10%'}}/>
               <button onClick={() => addToCart(product)}>Add to Cart</button>
               <button onClick={() => buyProduct(product)}>Buy</button>
             </li>
