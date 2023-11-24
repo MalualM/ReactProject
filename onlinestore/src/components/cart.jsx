@@ -1,5 +1,7 @@
 import React from 'react';
-import './cart.css'
+import './cart.css';
+
+
 function Cart({ cart, onRemoveFromCart }) {
   return (
     <div className='cart'>
@@ -13,7 +15,7 @@ function Cart({ cart, onRemoveFromCart }) {
         ))}
       </ul>
     </div>
-  );
+  )
 }
 
 export default Cart;

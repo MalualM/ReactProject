@@ -5,7 +5,7 @@ const HomePage = () =>{
 
     const navigate = useNavigate();
     const handleViewProductList = () => {
-        navigate("/ProductList");
+        navigate("/ProductList")
     };
 
     return (
@@ -15,4 +15,4 @@ const HomePage = () =>{
         </>
     )
 }
-export default HomePage
+export default HomePage;
